@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\actions;
+namespace redspace\helpers\actions;
 
 use yii\base\Action;
 use yii\db\ActiveRecord;
