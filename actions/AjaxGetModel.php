@@ -13,8 +13,6 @@ use Yii;
  * User: smirnov
  * Date: 18.12.2017
  * Time: 1:26
- *
- *
  */
 
 class AjaxGetModel extends Action
