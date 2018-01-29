@@ -14,21 +14,21 @@ namespace redspace\helpers\traits;
 
 trait GridStatusTrait
 {
-    function isDeletedLabels() {
+    public static function isDeletedLabels() {
         return [
             0 => 'активен',
             1 => 'удален'
         ];
     }
 
-    function isDeletedLabelClasses() {
+    public static function isDeletedLabelClasses() {
         return [
             0 => 'label label-primary',
             1 => 'label label-danger',
         ];
     }
 
-    function isDeletedLabel()
+    public function isDeletedLabel()
     {
         return '<span class="' . self::isDeletedLabelClasses()[$this->is_deleted] . '">' . self::isDeletedLabels()[$this->is_deleted] . '</span>';
     }
