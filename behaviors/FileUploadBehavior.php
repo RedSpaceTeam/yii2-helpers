@@ -50,7 +50,9 @@ class FileUploadBehavior extends Behavior
             $filepath = date('Y/m/d') . '/' . uniqid() . '.' . $file->extension;
             $fullpath = Yii::getAlias($this->uploadPath) . '/' . $filepath;
             if (!is_dir($dir = dirname($fullpath))) {
-                FileHelper::createDirectory($dir);
+                if (!FileHelper::createDirectory($dir)) {
+                    throw new HttpException(500, 'Невозможно создать каталог: ' . $dir);
+                }
             }
 
             if (!$file->saveAs($fullpath)) {
