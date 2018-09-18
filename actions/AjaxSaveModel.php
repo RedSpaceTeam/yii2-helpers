@@ -52,7 +52,11 @@ class AjaxSaveModel extends Action
                 $model->load(Yii::$app->request->post());
                 if ($model->validate()) {
                     $model->save();
-                    return ['error' => 0, 'msg' => $this->title.' "' . $model->title . '" добавлен.'];
+                    if ($this->titleAttribute) {
+                        return ['error' => 0, 'msg' => $this->title.' "' . $model->{$this->titleAttribute} . '" добавлен.'];
+                    } else {
+                        return ['error' => 0, 'msg' => 'Объект успешно изменен.'];
+                    }
                 } else {
                     $errors = 'Исправьте следующие ошибки: <ul>';
                     foreach ($model->getErrors() as $error) {
