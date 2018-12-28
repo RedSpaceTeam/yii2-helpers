@@ -47,6 +47,7 @@ class AjaxSaveModel extends Action
 
                 if (!$model) {
                     $model = new $obj;
+                    $model->loadDefaultValues();
                 }
 
                 $model->load(Yii::$app->request->post());
