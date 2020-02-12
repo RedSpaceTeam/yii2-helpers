@@ -48,7 +48,7 @@ class TrimAttributesBehavior extends Behavior
 
         $temp = array_keys($this->owner->getAttributes());
         foreach ($temp as $item) {
-            if (!in_array($item, $this->ignoreAttributes)) {
+            if (!in_array($item, $this->ignoreAttributes) && !is_object($item)) {
                 $attributes[] = $item;
             }
         }
