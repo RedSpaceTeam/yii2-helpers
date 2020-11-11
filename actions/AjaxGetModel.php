@@ -32,7 +32,7 @@ class AjaxGetModel extends Action
                     $model = new $obj;
                     return ['error' => 0, 'exists' => 0, 'data' => $model->attributes];
                 } else {
-                    return ['error' => 1, 'exists' => 1, 'data' => $model->attributes];
+                    return ['error' => 0, 'exists' => 1, 'data' => $model->attributes];
                 }
 
             } else {
