@@ -4,6 +4,7 @@ namespace redspace\helpers\actions;
 
 use yii\base\Action;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
 use yii\web\Response;
 use Yii;
@@ -20,6 +21,12 @@ class AjaxGetModel extends Action
     /** @var ActiveRecord $model */
     public $model;
 
+    /**
+     * @var array - [ключ ID input-элемента для typeahead => значение для title-поля)
+     * Example: ['typeahead_eductation_test_title' => 'educationTest.title']
+     */
+    public $typeaheads = [];
+
     public function run($id = null)
     {
         if (Yii::$app->request->isAjax) {
@@ -30,9 +37,15 @@ class AjaxGetModel extends Action
 
                 if (!$model) {
                     $model = new $obj;
-                    return ['error' => 0, 'exists' => 0, 'data' => $model->attributes];
+
+                    return ['error' => 0, 'exists' => 0, 'data' => $model->attributes, 'typeaheads' => ''];
                 } else {
-                    return ['error' => 0, 'exists' => 1, 'data' => $model->attributes];
+                    $typeaheads = [];
+                    foreach ($this->typeaheads as $key => $value) {
+                        $typeaheads[$key] = ArrayHelper::getValue($model, $value, 'null');
+                    }
+
+                    return ['error' => 0, 'exists' => 1, 'data' => $model->attributes, 'typeaheads' => $typeaheads];
                 }
 
             } else {
