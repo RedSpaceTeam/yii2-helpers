@@ -1,0 +1,27 @@
+{
+  "name": "redspace/yii2-helpers",
+  "description": "Red Speces helpers for use",
+  "keywords": ["yii2", "yii2-helpers"],
+  "type": "yii2-extension",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/RedSpaceTeam/yii2-helpers/issues?state=open",
+    "source": "https://github.com/RedSpaceTeam/yii2-helpers"
+  },
+  "authors": [
+    {
+      "name": "Alexander Smirnov",
+      "email": "smirnov@redspace.pro",
+      "homepage": "https://alexander-smirnov.ru"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "yiisoft/yii2": "^2.0.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "redspace\\helpers\\": ""
+    }
+  }
+}
