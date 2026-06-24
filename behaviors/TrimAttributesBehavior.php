@@ -48,11 +48,21 @@ class TrimAttributesBehavior extends Behavior
     {
         $attributes = [];
 
-        $temp = array_keys($this->owner->getAttributes());
-        foreach ($temp as $item) {
-            if (!in_array($item, $this->ignoreAttributes) && !is_object($item)) {
-                $attributes[] = $item;
+        // Берём только изменённые атрибуты и только строковые значения:
+        // trim() приводит к строке, поэтому на int/null его натравливать нельзя —
+        // иначе id/*_id меняют тип и ложно попадают в getDirtyAttributes()
+        foreach (array_keys($this->owner->getDirtyAttributes()) as $name) {
+            if (in_array($name, $this->ignoreAttributes)) {
+                continue;
             }
+            if (!is_string($this->owner->$name)) {
+                continue;
+            }
+            $attributes[] = $name;
+        }
+
+        if (empty($attributes)) {
+            return;
         }
 
         $this->owner->validators->offsetSet(-1, Validator::createValidator(FilterValidator::class, $this->owner, $attributes, ['filter' => 'trim']));
