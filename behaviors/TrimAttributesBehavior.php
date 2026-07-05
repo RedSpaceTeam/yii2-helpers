@@ -50,8 +50,12 @@ class TrimAttributesBehavior extends Behavior
 
         // Берём только изменённые атрибуты и только строковые значения:
         // trim() приводит к строке, поэтому на int/null его натравливать нельзя —
-        // иначе id/*_id меняют тип и ложно попадают в getDirtyAttributes()
-        foreach (array_keys($this->owner->getDirtyAttributes()) as $name) {
+        // иначе id/*_id меняют тип и ложно попадают в getDirtyAttributes().
+        // Плоские формы (yii\base\Model) не имеют getDirtyAttributes() — берём все атрибуты.
+        $dirty = method_exists($this->owner, 'getDirtyAttributes')
+            ? $this->owner->getDirtyAttributes()
+            : $this->owner->getAttributes();
+        foreach (array_keys($dirty) as $name) {
             if (in_array($name, $this->ignoreAttributes)) {
                 continue;
             }
